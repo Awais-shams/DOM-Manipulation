@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM-Manipulation</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+
+    <div class="container-md mt-5">
+        <h1 class="h1 mb-5">Employee Form</h1>
+        <div class="row">
+            <div class="col-3">
+                <label for="employeeId" class="form-label">Employee Id</label><br>
+                <input type="text" class="form-control" name="employeeId" id="employeeId"><br><br>
+            </div>
+            <div class="col-3">
+                <label for="employeeName" class="form-label">Employee Name</label><br>
+                <input type="text" class="form-control" name="employeeName" id="employeeName"><br><br>
+            </div>
+            <div class="col-3">
+                <label for="designation" class="form-label">Designation</label><br>
+                <input type="text" class="form-control" name="designation" id="designation"><br><br>
+            </div>
+            <div class="col-3">
+                <label for="department" class="form-label">Department</label><br>
+                <input type="text" class="form-control" name="department" id="department"><br><br>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-dark" onclick="addData()">Add Data</button>
+            </div>
+        </div>
+        <div>
+
+    </div>
+    
+    <h1 class="h1 mt-5">Employee Data</h1>
+    <table class="table" id="myTable">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Employee ID</th>
+            <th scope="col">Employee Name</th>
+            <th scope="col">Designation</th>
+            <th scope="col">Department</th>
+          </tr>
+        </thead>
+        <tbody id="tdata">
+            
+        </tbody>
+      </table>
+    
+
+    <script>
+        const obj={}
+        let count=0;
+       
+
+        function getData(){
+            count++;
+            let parseArr=localStorage.getItem("empObj");
+            let parse=JSON.parse(parseArr)
+            console.log(parse)
+           
+            
+            let rowTemplate=`<tr >
+                <th scope="row" id="id">${count}</th>
+                <th scope="row" id="empId">${parse.id}</th>
+                <td id="empName">${parse.name}</td>
+                <td id="desig">${parse.designation}</td>
+                <td id="depa">${parse.department}</td>
+                </tr>`
+            
+            document.getElementById("tdata").innerHTML+=rowTemplate;    
+            
+            
+        }
+
+        function addData(){
+            obj.id=document.getElementById("employeeId").value;
+            obj.name=document.getElementById("employeeName").value;
+            obj.designation=document.getElementById("designation").value;
+            obj.department=document.getElementById("department").value;
+            console.log(obj)
+            let json=JSON.stringify(obj)
+            console.log(json)
+            localStorage.setItem("empObj",json)
+            getData()
+           
+        }
+       
+      
+        
+        
+        
+        
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</body>
+</html>
